@@ -2,6 +2,13 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(KDIS)
 
+# Use ccache to improve compile times if available (CDIT-MA)
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+    SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    SET_PROPERTY(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+endif(CCACHE_FOUND)
+
 #Import all files, Headers and cpp files seperate.
 
 #Options-------------------------------------------------
@@ -977,7 +984,7 @@ set(KDIS_SRC
 add_library("kdis" STATIC ${KDIS_SRC})
 target_compile_definitions("kdis" PRIVATE "DIS_VERSION=${DIS_VERSION}")
 set_target_properties("kdis" PROPERTIES POSITION_INDEPENDENT_CODE ON)
-# Suppress dynamic exception and auto_ptr deprecation warnings
+# Suppress dynamic exception and auto_ptr deprecation warnings (CDIT-MA)
 target_compile_options("kdis" PRIVATE -Wno-deprecated -Wno-deprecated-declarations)
 
 
@@ -1002,5 +1009,9 @@ INSTALL(FILES ${KDIS_SRC_PDU_SM_H}     DESTINATION  include/${BASE_DIRNAME}/${PD
 INSTALL(FILES ${KDIS_SRC_PDU_SMWR_H}   DESTINATION  include/${BASE_DIRNAME}/${PDU_SMWR_DIRNAME})
 INSTALL(FILES ${KDIS_SRC_PDU_W_H}      DESTINATION  include/${BASE_DIRNAME}/${PDU_W_DIRNAME})
 
-# Added by cdit-ma
-INSTALL(TARGETS "kdis" LIBRARY DESTINATION lib)
+# Install static library to standard library location, normally /usr/local/lib (CDIT-MA)
+INSTALL(
+    TARGETS "kdis"
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    )

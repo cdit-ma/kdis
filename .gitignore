@@ -1,0 +1,62 @@
+# cdit-ma default build dirs
+/build/
+/lib/
+/bin/
+/cmake-build-*/
+
+# IDE config dirs
+/.vscode/
+/.idea/
+
+# Scripts and other artifacts
+.DS_Store
+scripts/configure.bat
+build.bat
+run.bat
+CMakeSettings.json.bak
+/src/workers/opencl/binaries/*
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
+
+#Cached
+.DS_Store
+.vscode
+
+#Protobuf
+*.pb.*
+
+#SQL
+*.sql
+
+#Generated protobuf files
+*.pb.*
